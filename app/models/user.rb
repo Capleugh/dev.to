@@ -12,6 +12,7 @@ class User < ApplicationRecord
   include AlgoliaSearch
   include Storext.model
 
+  # lines 16 and 17 allow us to create a follower-followable relationship which lets us call .follow on a user
   acts_as_followable
   acts_as_follower
 
