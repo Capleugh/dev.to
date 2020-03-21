@@ -7,6 +7,7 @@ class ApplicationMailer < ActionMailer::Base
   )
 
   def generate_unsubscribe_token(id, email_type)
+    # the message verifier method allows us to verify and generate messages in a secure manner since we don't have a session to track what's happening
     Rails.application.message_verifier(:unsubscribe).generate(
       user_id: id,
       email_type: email_type.to_sym,
