@@ -1,10 +1,18 @@
 class ArticlesController < ApplicationController
+  # instructs controller to use an application helper module
   include ApplicationHelper
 
+  # before any action can be taken, go look for :authenticate_user! method in application controller
+  # :authenticate_user! checks to see if user browsing page is a current_user. If not current_user, go sign in
+  # restricts access to everything other than feed and new unless signed in
   before_action :authenticate_user!, except: %i[feed new]
+  # finds a users articles and allows them access to edit, manage, update, destroy, and stats
   before_action :set_article, only: %i[edit manage update destroy stats]
+  # denies access to new, create, and update if user is banned
   before_action :raise_suspended, only: %i[new create update]
+
   before_action :set_cache_control_headers, only: %i[feed]
+
   after_action :verify_authorized
 
   def feed
