@@ -19,6 +19,7 @@ class EmailLogic
     self
   end
 
+  # why would you write this when the instance variable gets called in analyze?
   def should_receive_email?
     @ready_to_receive_email
   end
@@ -59,7 +60,9 @@ class EmailLogic
 
   def get_days_until_next_email
     # Relies on hyperbolic tangent function to model the frequency of the digest email
+    # max is 0
     max_day = SiteConfig.periodic_email_digest_max
+    # min is 2
     min_day = SiteConfig.periodic_email_digest_min
     result = max_day * (1 - Math.tanh(2 * @open_percentage))
     result = result.round
