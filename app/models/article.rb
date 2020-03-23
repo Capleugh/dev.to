@@ -38,7 +38,7 @@ class Article < ApplicationRecord
   counter_culture :user
   counter_culture :organization
 
-  # denotes the many to many relationships
+  # denotes what belongs to article table
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :profile_pins, as: :pinnable, inverse_of: :pinnable
   has_many :buffer_updates, dependent: :destroy

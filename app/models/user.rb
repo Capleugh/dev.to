@@ -12,6 +12,7 @@ class User < ApplicationRecord
   include AlgoliaSearch
   include Storext.model
 
+  # gem to setup inverse relationships between user models to allow for follow/following functionality
   acts_as_followable
   acts_as_follower
 
