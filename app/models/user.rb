@@ -16,6 +16,7 @@ class User < ApplicationRecord
   acts_as_followable
   acts_as_follower
 
+  # denotes what tables belong to user
   has_many :organization_memberships, dependent: :destroy
   has_many :organizations, through: :organization_memberships
   has_many :api_secrets, dependent: :destroy
@@ -36,6 +37,7 @@ class User < ApplicationRecord
   has_many :reactions, dependent: :destroy
   has_many :tweets, dependent: :destroy
   has_many :chat_channel_memberships, dependent: :destroy
+  # denotes a many to many relationship
   has_many :chat_channels, through: :chat_channel_memberships
   has_many :notification_subscriptions, dependent: :destroy
 
@@ -63,8 +65,10 @@ class User < ApplicationRecord
 
   mount_uploader :profile_image, ProfileImageUploader
 
+  # gem for OAuth process
   devise :omniauthable, :registerable, :database_authenticatable, :confirmable, :rememberable
 
+  # validations for user model to maintain integrity of data before it is saved in database
   validates :email,
             length: { maximum: 50 },
             email: true,
@@ -300,9 +304,15 @@ class User < ApplicationRecord
     true
   end
 
+  # this method creates a cache, or memory store where we can easily pull the tags the user follows from
   def cached_followed_tag_names
+    # creates name of the cache here
     cache_name = "user-#{id}-#{following_tags_count}-#{last_followed_at&.rfc3339}/followed_tag_names"
+    # built-in rails cache method
+    # info in cache set to expire in 24 hours after it is run
     Rails.cache.fetch(cache_name, expires_in: 24.hours) do
+      # ActiveRecord query to find tag where the follower id is the is of the user
+      # Plucks the tag id and the name of tag
       Tag.where(
         id: Follow.where(
           follower_id: id,
