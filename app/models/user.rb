@@ -249,6 +249,7 @@ class User < ApplicationRecord
   end
 
   def followed_articles
+    # pulling articles based off of the cached tags they're following and cached users they're following and where the preferred languages match
     Article.tagged_with(cached_followed_tag_names, any: true).
       union(Article.where(user_id: cached_following_users_ids)).
       where(language: preferred_languages_array, published: true)
@@ -256,7 +257,10 @@ class User < ApplicationRecord
 
   def cached_following_users_ids
     cache_key = "user-#{id}-#{last_followed_at}-#{following_users_count}/following_users_ids"
+    # most efficient way to implement low-level caching (built in caching mechanism)
     Rails.cache.fetch(cache_key, expires_in: 12.hours) do
+      # We don't really see how this slows down the site? How would you have arrived at this conclusion?
+      # takes the first 150 follower ids and pops off followable id
       Follow.follower_user(id).limit(150).pluck(:followable_id)
     end
   end
@@ -302,7 +306,9 @@ class User < ApplicationRecord
 
   def cached_followed_tag_names
     cache_name = "user-#{id}-#{following_tags_count}-#{last_followed_at&.rfc3339}/followed_tag_names"
+
     Rails.cache.fetch(cache_name, expires_in: 24.hours) do
+      # plucks tag names and followable ids where followable type is "ActsAsTaggableOn::Tag"
       Tag.where(
         id: Follow.where(
           follower_id: id,
