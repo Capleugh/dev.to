@@ -1,27 +1,44 @@
 class Article < ApplicationRecord
+  # service that delivers enhanced and optimized images/videos to users automatically
   include CloudinaryHelper
+  # allows us to use sharable built-in methods for views
   include ActionView::Helpers
+  # provides search as a service
   include AlgoliaSearch
+  # layers on top of ActiveRecord::Store and allows for typecast values
   include Storext.model
+  # includes React to use with Rails
   include Reactable
 
+  # gem that allows us to specify an arbitrary number of tag "contexts" that can be used locally or in combination
   acts_as_taggable_on :tags
+  # gem that helps to speed up development by giving you json api controllers that inherit all restful actions
   resourcify
 
+  # getter and setter for article class
   attr_accessor :publish_under_org
   attr_writer :series
 
+  # delegation is where an object exposes certain behavior but gives responsibility for implementating that behavior to another associated object
   delegate :name, to: :user, prefix: true
   delegate :username, to: :user, prefix: true
 
+  # denotes one to many relationships
+  # article MUST belong to a user
   belongs_to :user
+  # article can belong to a job opportunity
   belongs_to :job_opportunity, optional: true
+  # article can belong to an organization
   belongs_to :organization, optional: true
+  # article can belong to collection
+  # touch means the updated at column will update time/date to now when updated or deleted
   belongs_to :collection, optional: true, touch: true
 
+  # gem that speeds up counter caches as opposed to using the built in Rails ones
   counter_culture :user
   counter_culture :organization
 
+  # denotes the many to many relationships
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :profile_pins, as: :pinnable, inverse_of: :pinnable
   has_many :buffer_updates, dependent: :destroy
@@ -30,6 +47,7 @@ class Article < ApplicationRecord
   has_many :rating_votes
   has_many :page_views
 
+  # all of the validations it checks before saving to database
   validates :slug, presence: { if: :published? }, format: /\A[0-9a-z\-_]*\z/,
                    uniqueness: { scope: :user_id }
   validates :title, presence: true,
@@ -56,6 +74,7 @@ class Article < ApplicationRecord
   validates :video_closed_caption_track_url, url: { allow_blank: true, schemes: ["https"] }
   validates :video_source_url, url: { allow_blank: true, schemes: ["https"] }
 
+  # denotes after and before action methods to ensure integrity of data in database
   after_update_commit :update_notifications, if: proc { |article| article.notifications.any? && !article.saved_changes.empty? }
   before_validation :evaluate_markdown
   before_validation :create_slug
@@ -72,10 +91,12 @@ class Article < ApplicationRecord
   before_save       :update_cached_user
   before_destroy    :before_destroy_actions, prepend: true
 
+  # serializes json produced from these methods
   serialize :ids_for_suggested_articles
   serialize :cached_user
   serialize :cached_organization
 
+  # outlines scopes for Article model
   scope :published, -> { where(published: true) }
   scope :unpublished, -> { where(published: false) }
 
@@ -396,8 +417,12 @@ class Article < ApplicationRecord
     "articles-#{id}"
   end
 
+  # updates scores on articles
+  # may need to use this to determine if article is highly rated or may use total page views
   def update_score
+    # sums up reactions by points and reactions from users
     new_score = reactions.sum(:points) + Reaction.where(reactable_id: user_id, reactable_type: "User").sum(:points)
+    # updates the score, comment score, hotness score, and spaminess rating columns in the database with the sum of the previous method
     update_columns(score: new_score,
                    comment_score: comments.sum(:score),
                    hotness_score: BlackBox.article_hotness_score(self),
