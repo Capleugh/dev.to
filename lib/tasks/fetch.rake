@@ -49,7 +49,9 @@ task github_repo_fetch_all: :environment do
   GithubRepo.update_to_latest
 end
 
+# this task fires off email digest if a user has subscribed
 task send_email_digest: :environment do
+  # if it has been three days since last email sent, then send email digest
   if Time.current.wday >= 3
     EmailDigest.send_periodic_digest_email
   end
