@@ -49,7 +49,11 @@ task github_repo_fetch_all: :environment do
   GithubRepo.update_to_latest
 end
 
+# this is the task that sends the email digest
 task send_email_digest: :environment do
+  # wday is a method that returns an integer representing the day of the weekl
+  # if the current weekday is after Sunday(0), Monday (1), and Tuesday (2)
+  # then complete the email digest task with Heroku Scheduler
   if Time.current.wday >= 3
     EmailDigest.send_periodic_digest_email
   end
