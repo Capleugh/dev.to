@@ -8,6 +8,10 @@ class EmailDigest
     new(users).send_periodic_digest_email
   end
 
+  def self.send_daily_digest_email(users = [])
+    new(users).send_daily_digest_email
+  end
+
   def initialize(users = [])
     @users = users.empty? ? get_users : users
   end
@@ -23,6 +27,12 @@ class EmailDigest
       rescue StandardError => e
         Rails.logger.error("Email issue: #{e}")
       end
+    end
+  end
+
+  def send_daily_digest_email
+    @users.find_each do |user|
+      EmailLogic.new(user).analyze_daily_email
     end
   end
 

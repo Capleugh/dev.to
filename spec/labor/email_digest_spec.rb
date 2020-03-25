@@ -14,6 +14,7 @@ RSpec.describe EmailDigest, type: :labor do
 
   before do
     allow(DigestMailer).to receive(:digest_email) { mock_delegator }
+    allow(DailyDigestMailer).to receive(:daily_digest_email) { mock_delegator }
     allow(mock_delegator).to receive(:deliver).and_return(true)
     user
   end
@@ -24,8 +25,20 @@ RSpec.describe EmailDigest, type: :labor do
 
       it "send digest email when there's atleast 3 hot articles" do
         create_list(:article, 3, user_id: author.id, positive_reactions_count: 20, score: 20)
+
         described_class.send_periodic_digest_email
+
         expect(DigestMailer).to have_received(:digest_email).with(
+          user, [instance_of(Article), instance_of(Article), instance_of(Article)]
+        )
+      end
+
+      it "send daily digest email" do
+        create_list(:article, 3)
+
+        described_class.send_daily_digest_email
+
+        expect(DailyDigestMailer).to have_received(:daily_digest_email).with(
           user, [instance_of(Article), instance_of(Article), instance_of(Article)]
         )
       end
