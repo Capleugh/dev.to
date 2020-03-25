@@ -412,6 +412,8 @@ Rails.application.routes.draw do
   get "/:username/:slug" => "stories#show"
   get "/:username" => "stories#index"
 
+  get "/email" => "email#index"
+
   root "stories#index"
 end
 
