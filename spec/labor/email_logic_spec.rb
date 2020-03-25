@@ -79,4 +79,16 @@ RSpec.describe EmailLogic, type: :labor do
       expect(h.should_receive_email?).to eq(true)
     end
   end
+
+  describe "#analyze_daily_email" do
+    it "email contains one article" do
+      author = create(:user)
+      user.follow(author)
+      article = create(:article, user_id: author.id)
+
+      h = described_class.new(user).analyze_daily_email
+
+      expect(h).to eq(article)
+    end
+  end
 end

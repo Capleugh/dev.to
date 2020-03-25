@@ -19,6 +19,10 @@ class EmailLogic
     self
   end
 
+  def analyze_daily_email
+    @articles_to_send = one_article
+  end
+
   def should_receive_email?
     @ready_to_receive_email
   end
@@ -55,6 +59,10 @@ class EmailLogic
     @ready_to_receive_email = false if articles.length < 3
 
     articles
+  end
+
+  def one_article
+    @user.followed_articles.first if user_has_followings?
   end
 
   def get_days_until_next_email
