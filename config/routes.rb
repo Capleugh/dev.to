@@ -344,6 +344,7 @@ Rails.application.routes.draw do
 
   # for testing rails mailers
   unless Rails.env.production?
+    get "/email" => "email#index"
     get "/rails/mailers" => "rails/mailers#index"
     get "/rails/mailers/*path" => "rails/mailers#preview"
   end
@@ -411,8 +412,6 @@ Rails.application.routes.draw do
       :constraints => { view: /comments|moderate|admin/ }
   get "/:username/:slug" => "stories#show"
   get "/:username" => "stories#index"
-
-  get "/email" => "email#index"
 
   root "stories#index"
 end

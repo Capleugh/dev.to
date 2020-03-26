@@ -62,6 +62,7 @@ class EmailLogic
   end
 
   def one_article
+    Article.all.limit(1)
     @user.followed_articles.first if user_has_followings?
   end
 
