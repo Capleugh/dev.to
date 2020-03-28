@@ -12,7 +12,7 @@ class EmailDigest
 
   # initialized with users as an empty array
   def initialize(users = [])
-    @users = users.empty? ? get_users : users
+    @users = users.empty? ? retrieve_users : users
     # backend constructor - passing through users
   end
 
@@ -39,7 +39,7 @@ class EmailDigest
 
   private
 
-  def get_users
+  def retrieve_users
     User.where(email_digest_periodic: true).where.not(email: "")
   end
 end
