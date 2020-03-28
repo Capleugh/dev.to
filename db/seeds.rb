@@ -141,6 +141,26 @@ num_articles.times do |i|
     show_comments: true,
     user_id: User.order(Arel.sql("RANDOM()")).first.id,
   )
+
+  Article.create!(
+    body_markdown: markdown,
+    featured: true,
+    show_comments: true,
+    user_id: User.order(Arel.sql("RANDOM()")).first.id,
+    page_views_count: 60,
+    published_at: 4.days.ago.utc,
+    hotness_score: 30
+  )
+
+  Article.create!(
+    body_markdown: markdown,
+    featured: true,
+    show_comments: true,
+    user_id: User.order(Arel.sql("RANDOM()")).first.id,
+    page_views_count: 10,
+    published_at: 20.days.ago.utc,
+    hotness_score: 3
+  )
 end
 
 ##############################################################################
