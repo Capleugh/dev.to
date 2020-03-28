@@ -4,7 +4,7 @@ class DailyDigestMailer < ApplicationMailer
   def daily_digest_email(user, article)
     @user = user
     @article = article
-    subject = "Daily Dev"
+    subject = "Daily Dev Email"
     mail(to: @user.email, subject: subject)
   end
 end
