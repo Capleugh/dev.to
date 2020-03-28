@@ -28,7 +28,7 @@ RSpec.describe EmailDigest, type: :labor do
         described_class.send_periodic_digest_email
 
         expect(DigestMailer).to have_received(:digest_email).with(
-          user, [instance_of(Article), instance_of(Article), instance_of(Article)]
+          user, [instance_of(Article), instance_of(Article), instance_of(Article)
         )
       end
     end
