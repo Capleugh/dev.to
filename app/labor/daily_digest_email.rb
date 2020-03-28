@@ -1,13 +1,13 @@
 class DailyDigestEmail
   def self.send_daily_digest_email(users = [])
-    new(users).send_daily_digest_email
+    new(users).send_daily_digest_emails
   end
 
   def initialize(users = [])
     @users = users.empty? ? get_users : users
   end
 
-  def send_daily_digest_email
+  def send_daily_digest_emails
     @users.find_each do |user|
       article = EmailLogic.new(user).analyze_daily_email
 
