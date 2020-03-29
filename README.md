@@ -1,3 +1,36 @@
+## DEV.to Daily DEV
+A new way to receive daily emaila from your favorite articles on DEV.to
+Pair Project in MOdule 4 at Turing School of Software and Design
+
+### Introduction
+We were given 10 days to understand and implement a new feature in a large, already built, working code base. We were tasked with first annotating as best we could the functionality already built into the app. We split the codebase into two sections, front end and back end, and annotated over a dozen files between the three of us, walking step by step through some of the more relevant functionality. We then shared our annotations with the team to create a better understanding of the project for everyone working on it. Next we were tasked with adding a new functionality piece, a daily email that would send out to the user after checking a box requesting it, containing a single new article each day. We were expected to have the email successfully go out on the check of a new box that was built, and design the email to be pleasant to the user. 
+
+### Screenshot
+![wireframe](https://user-images.githubusercontent.com/53594458/77856066-d5e62000-71b1-11ea-8fa9-d5ad9f9d954a.png)
+![email](https://user-images.githubusercontent.com/53594458/77856081-e6969600-71b1-11ea-8d79-65d5884779d7.png)
+
+### Project Learning Goals
+1. Learn and apply strategies for understanding how to analyze a large, existing code base.
+2. Apply strategies for reading and evaluating documentation.
+3. Explore and implement new concepts, patterns, or libraries that have not been explicitly taught while at Turing.
+4. Practice an advanced, professional git workflow.
+
+### Technologies Used
+- HTML / INLINE CSS
+- RUBY / RAILS
+- GitHub / Git / Rebase
+- React 
+- NPM
+- Mail Catcher
+- Elastic Search
+
+### This Project Was Created By
+- Carleigh Crockett https://github.com/Capleugh
+- Linda Le https://github.com/linda-le1
+- Virginia Ladd https://github.com/vladd-png
+
+### Below is the Original README from the DEV.to Team
+
 <div align="center">
   <br>
   <img alt="DEV" src="https://thepracticaldev.s3.amazonaws.com/i/ro3538by3b2fupbs63sr.png" width="500px">
