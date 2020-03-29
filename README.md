@@ -1,5 +1,5 @@
 ## DEV.to Daily DEV
-A new way to receive daily emaila from your favorite articles on DEV.to
+A new way to receive daily email from your favorite articles on DEV.to
 Pair Project in MOdule 4 at Turing School of Software and Design
 
 ### Introduction
@@ -15,9 +15,17 @@ We were given 10 days to understand and implement a new feature in a large, alre
 3. Explore and implement new concepts, patterns, or libraries that have not been explicitly taught while at Turing.
 4. Practice an advanced, professional git workflow.
 
+### Access Locally
+- Clone this repo with: `git@github.com:Capleugh/dev.to.git`
+- Install Ruby 2.6.5
+- Install Rails 5.2.4
+- Instructions for accessing Algolia search credentials can be found [here](https://docs.dev.to/backend/algolia/).
+- Run `figaro inastall` from the command line.
+- Add algolia environment variables in the application.yml file that `figaro install` generates.
+
 ### Technologies Used
 - HTML / INLINE CSS
-- RUBY / RAILS
+- Ruby / Rails
 - GitHub / Git / Rebase
 - React 
 - NPM
