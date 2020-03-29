@@ -19,9 +19,9 @@ We were given 10 days to understand and implement a new feature in a large, alre
 - Clone this repo with: `git@github.com:Capleugh/dev.to.git`
 - Install Ruby 2.6.5
 - Install Rails 5.2.4
-- Instructions for accessing Algolia search credentials can be found [here](https://docs.dev.to/backend/algolia/).
-- Run `figaro inastall` from the command line.
-- Add algolia environment variables in the application.yml file that `figaro install` generates.
+- Run `bundle install`
+- Run `rails db:setup`
+- Instructions for getting your environment configured for MacOS can be found [here](https://docs.dev.to/installation/mac/).
 
 ### Technologies Used
 - HTML / INLINE CSS
