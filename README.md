@@ -26,6 +26,8 @@ We were given 10 days to understand and implement a new feature in a large, alre
 ### Technologies Used
 - HTML / INLINE CSS
 - Ruby / Rails
+- RSpec
+- PostgresQL
 - GitHub / Git / Rebase
 - React 
 - NPM
