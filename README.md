@@ -34,6 +34,9 @@ We were given 10 days to understand and implement a new feature in a large, alre
 - Mail Catcher
 - Elastic Search
 
+### Schema
+![schema](https://user-images.githubusercontent.com/47065120/77864987-3d6b9200-71e9-11ea-8070-bea4b1f70673.png)
+
 ### This Project Was Created By
 - Carleigh Crockett https://github.com/Capleugh
 - Linda Le https://github.com/linda-le1
