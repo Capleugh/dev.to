@@ -35,7 +35,7 @@ We were given 10 days to understand and implement a new feature in a large, alre
 - Elastic Search
 
 ### Schema
-![schema](https://user-images.githubusercontent.com/47065120/77864987-3d6b9200-71e9-11ea-8070-bea4b1f70673.png)
+![schema](https://user-images.githubusercontent.com/47065120/77865234-8d972400-71ea-11ea-856d-cef8bcc03956.png)
 
 ### This Project Was Created By
 - Carleigh Crockett https://github.com/Capleugh
